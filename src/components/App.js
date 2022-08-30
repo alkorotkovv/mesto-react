@@ -1,7 +1,7 @@
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
-
+import PopupWithForm from './PopupWithForm.js';
 import PopupWithImage from './PopupWithImage.js';
 
 function App() {
@@ -10,13 +10,9 @@ function App() {
       <Header />
       <Main />
       <Footer />
-      
-
-
-      <div className="popup popup_type_edit">
-        <div className="popup__container">
-          <form className="form form_profile_edit" name="form_profile_edit" noValidate>
-            <h2 className="form__title">Редактировать профиль</h2>
+      <PopupWithImage />
+      <PopupWithForm name="profile_edit" title="Редактировать профиль" children={
+        <>
             <fieldset className="form__info">
               <label className="form__field">
                 <input className="form__input form__input_content_name" id="input-name" type="text" name="name" placeholder="Имя" required minLength="2" maxLength="40"/>
@@ -28,15 +24,11 @@ function App() {
               </label>
             </fieldset>
             <button className="form__save-button form__save-button_disabled" type="submit" disabled>Сохранить</button>
-          </form>
-          <button className="popup__close-button" type="button" aria-label="Close"></button>
-        </div>
-      </div>
+        </>
+        }  />
 
-      <div className="popup popup_type_add">
-        <div className="popup__container">
-          <form className="form form_card_add" name="form_card_add" noValidate>
-            <h2 className="form__title">Новое место</h2>
+      <PopupWithForm name="card_add" title="Новое место" children={
+        <>
             <fieldset className="form__info">
               <label className="form__field">
                 <input className="form__input form__input_content_place" id="input-place" type="text" name="place" placeholder="Название" required minLength="2" maxLength="30"/>
@@ -48,27 +40,14 @@ function App() {
               </label>
             </fieldset>
             <button className="form__save-button form__save-button_disabled" type="submit" disabled>Создать</button>
-          </form>
-          <button className="popup__close-button" type="button" aria-label="Close"></button>
-        </div>
-      </div>
+        </>
+        }  />  
 
-      <PopupWithImage />
+      <PopupWithForm name="card_delete" title="Вы уверены?" children={
+            <button className="form__save-button" type="submit">Да</button>}  />  
 
-      <div className="popup popup_type_delete">
-        <div className="popup__container">
-          <form className="form form_card_delete" name="form_card_delete" noValidate>
-            <h2 className="form__title">Вы уверены?</h2>
-            <button className="form__save-button" type="submit">Да</button>
-          </form>
-          <button className="popup__close-button" type="button" aria-label="Close"></button>
-        </div>
-      </div>
-
-      <div className="popup popup_type_avatar">
-        <div className="popup__container">
-          <form className="form form_avatar_edit" name="form_avatar_edit" noValidate>
-            <h2 className="form__title">Обновить аватар</h2>
+      <PopupWithForm name="avatar_edit" title="Обновить аватар" children={
+        <>
             <fieldset className="form__info">
               <label className="form__field">
                 <input className="form__input form__input_content_url" id="input-avatarurl" type="url" name="avatarurl" placeholder="Ссылка на аватар" required/>
@@ -76,10 +55,8 @@ function App() {
               </label>
             </fieldset>
             <button className="form__save-button form__save-button_disabled" type="submit" disabled>Сохранить</button>
-          </form>
-          <button className="popup__close-button" type="button" aria-label="Close"></button>
-        </div>
-      </div>
+        </>
+        }  /> 
 
 
 

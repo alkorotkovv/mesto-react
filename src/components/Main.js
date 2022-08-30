@@ -3,17 +3,17 @@ import profileImage from '../images/image.jpg';
 function Main() {
 
   function handleEditProfileClick() {
-    const popupElement = document.querySelector('.popup_type_edit');
+    const popupElement = document.querySelector('.popup_type_profile_edit');
     popupElement.classList.add('popup_opened');
   }
 
   function handleAddPlaceClick() {
-    const popupElement = document.querySelector('.popup_type_add');
+    const popupElement = document.querySelector('.popup_type_card_add');
     popupElement.classList.add('popup_opened');
   }
 
   function handleEditAvatarClick() {
-    const popupElement = document.querySelector('.popup_type_avatar');
+    const popupElement = document.querySelector('.popup_type_avatar_edit');
     popupElement.classList.add('popup_opened');
   }
 
