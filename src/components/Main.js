@@ -1,6 +1,24 @@
 import React from 'react';
 import profileImage from '../images/image.jpg';
 import api from '../utils/Api.js';
+import Card from './Card.js';
+
+/*
+{ 
+  cards.map(element => 
+    <li className="card" key={element._id}>
+      <img className="card__image" src={element.link} alt={element.name}/>
+      <div className="card__description">
+        <h2 className="card__title">{element.name}</h2>
+        <div className="card__likes">
+          <button className="card__like" type="button" aria-label="Like"></button>
+          <p className="card__count">{element.likes.length}</p>
+        </div>
+      </div>
+      <button className="card__delete" type="button" aria-label="Delete"></button>
+    </li>)
+}
+*/
 
 function Main(props) {
 
@@ -43,20 +61,11 @@ function Main(props) {
       </section>
       <section className="elements">
         <ul className="elements__cards">
-
+          
+          
           { 
             cards.map(element => 
-              <li className="card" key={element._id}>
-                <img className="card__image" src={element.link} alt={element.name}/>
-                <div className="card__description">
-                  <h2 className="card__title">{element.name}</h2>
-                  <div className="card__likes">
-                    <button className="card__like" type="button" aria-label="Like"></button>
-                    <p className="card__count">{element.likes.length}</p>
-                  </div>
-                </div>
-                <button className="card__delete" type="button" aria-label="Delete"></button>
-              </li>)
+              <Card card={element} key={element._id}/>)
           }
 
         </ul>
