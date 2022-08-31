@@ -1,4 +1,4 @@
-function PopupWithImage(props) {
+function ImagePopup(props) {
 
   return (
     <div className={`popup popup_type_card` + (Object.keys(props.card).length ? " popup_opened" : "")}> 
@@ -13,4 +13,4 @@ function PopupWithImage(props) {
   )
 }
 
-export default PopupWithImage;
+export default ImagePopup;
