@@ -12,6 +12,7 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupState] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupState] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupState] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditProfileClick() {
     setEditProfilePopupState(true);
@@ -29,14 +30,19 @@ function App() {
     setEditProfilePopupState(false);
     setAddPlacePopupState(false);
     setEditAvatarPopupState(false);
+    setSelectedCard({});
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
   }
 
   return (
     <div className="page">
       <Header />
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
       <Footer />
-      <PopupWithImage />
+      <PopupWithImage card={selectedCard} onClose = {closeAllPopups} />
       <PopupWithForm name="profile_edit" title="Редактировать профиль" onClose = {closeAllPopups} isOpen={isEditProfilePopupOpen} children={
         <>
             <fieldset className="form__info">
@@ -84,22 +90,8 @@ function App() {
       <PopupWithForm name="card_delete" title="Вы уверены?" children={
             <button className="form__save-button" type="submit">Да</button>}  /> 
 
-
-    <template id="cardTemplate">
-      <li className="card">
-        <img className="card__image" src="./images/elbrus.jpg" alt="фотография"/>
-        <div className="card__description">
-          <h2 className="card__title">Гора Эльбрус</h2>
-          <div className="card__likes">
-            <button className="card__like" type="button" aria-label="Like"></button>
-            <p className="card__count">100</p>
-          </div>
-        </div>
-        <button className="card__delete" type="button" aria-label="Delete"></button>
-      </li>
-    </template>
     </div>
-  );
+  )
 }
 
 export default App;

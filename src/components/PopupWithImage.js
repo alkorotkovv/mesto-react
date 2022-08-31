@@ -1,15 +1,16 @@
-function PopupWithImage() {
+function PopupWithImage(props) {
+
   return (
-    <div className="popup popup_type_card">
+    <div className={`popup popup_type_card` + (Object.keys(props.card).length ? " popup_opened" : "")}> 
       <div className="popup__container">
         <figure className="card-scale">
-            <img className="card-scale__image" src='https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg' alt="попап фотография"/>
-            <figcaption className="card-scale__caption">Байкал</figcaption>
+            <img className="card-scale__image" src={props.card.link} alt={props.card.name}/>
+            <figcaption className="card-scale__caption">{props.card.name}</figcaption>
         </figure>
-        <button className="popup__close-button" type="button" aria-label="Close"></button>
+        <button className="popup__close-button" onClick={props.onClose} type="button" aria-label="Close"></button>
       </div>
     </div>
-  );
+  )
 }
 
 export default PopupWithImage;
