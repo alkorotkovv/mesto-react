@@ -1,3 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -5,13 +8,36 @@ import PopupWithForm from './PopupWithForm.js';
 import PopupWithImage from './PopupWithImage.js';
 
 function App() {
+
+  const [isEditProfilePopupOpen, setEditProfilePopupState] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupState] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupState] = React.useState(false);
+
+  function handleEditProfileClick() {
+    setEditProfilePopupState(true);
+  }
+
+  function handleAddPlaceClick() {
+    setAddPlacePopupState(true);
+  }
+
+  function handleEditAvatarClick() {
+    setEditAvatarPopupState(true);
+  }
+
+  function closeAllPopups() {
+    setEditProfilePopupState(false);
+    setAddPlacePopupState(false);
+    setEditAvatarPopupState(false);
+  }
+
   return (
     <div className="page">
       <Header />
-      <Main />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
       <Footer />
       <PopupWithImage />
-      <PopupWithForm name="profile_edit" title="Редактировать профиль" children={
+      <PopupWithForm name="profile_edit" title="Редактировать профиль" onClose = {closeAllPopups} isOpen={isEditProfilePopupOpen} children={
         <>
             <fieldset className="form__info">
               <label className="form__field">
@@ -27,7 +53,7 @@ function App() {
         </>
         }  />
 
-      <PopupWithForm name="card_add" title="Новое место" children={
+      <PopupWithForm name="card_add" title="Новое место" onClose = {closeAllPopups} isOpen={isAddPlacePopupOpen} children={
         <>
             <fieldset className="form__info">
               <label className="form__field">
@@ -43,10 +69,7 @@ function App() {
         </>
         }  />  
 
-      <PopupWithForm name="card_delete" title="Вы уверены?" children={
-            <button className="form__save-button" type="submit">Да</button>}  />  
-
-      <PopupWithForm name="avatar_edit" title="Обновить аватар" children={
+      <PopupWithForm name="avatar_edit" title="Обновить аватар" onClose = {closeAllPopups} isOpen={isEditAvatarPopupOpen} children={
         <>
             <fieldset className="form__info">
               <label className="form__field">
@@ -58,6 +81,8 @@ function App() {
         </>
         }  /> 
 
+      <PopupWithForm name="card_delete" title="Вы уверены?" children={
+            <button className="form__save-button" type="submit">Да</button>}  /> 
 
 
     <template id="cardTemplate">
