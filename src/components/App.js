@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 
 import Header from './Header.js';
@@ -9,27 +9,27 @@ import ImagePopup from './ImagePopup.js';
 
 function App() {
 
-  const [isEditProfilePopupOpen, setEditProfilePopupState] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupState] = React.useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupState] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isEditProfilePopupOpen, setIsEditProfilePopupState] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupState] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupState] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   function handleEditProfileClick() {
-    setEditProfilePopupState(true);
+    setIsEditProfilePopupState(true);
   }
 
   function handleAddPlaceClick() {
-    setAddPlacePopupState(true);
+    setIsAddPlacePopupState(true);
   }
 
   function handleEditAvatarClick() {
-    setEditAvatarPopupState(true);
+    setIsEditAvatarPopupState(true);
   }
 
   function closeAllPopups() {
-    setEditProfilePopupState(false);
-    setAddPlacePopupState(false);
-    setEditAvatarPopupState(false);
+    setIsEditProfilePopupState(false);
+    setIsAddPlacePopupState(false);
+    setIsEditAvatarPopupState(false);
     setSelectedCard({});
   }
 
@@ -43,7 +43,7 @@ function App() {
       <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
       <Footer />
       <ImagePopup card={selectedCard} onClose = {closeAllPopups} />
-      <PopupWithForm name="profile_edit" title="Редактировать профиль" onClose = {closeAllPopups} isOpen={isEditProfilePopupOpen} children={
+      <PopupWithForm name="profile_edit" title="Редактировать профиль" buttonText="Сохранить" onClose = {closeAllPopups} isOpen={isEditProfilePopupOpen} children={
         <>
             <fieldset className="form__info">
               <label className="form__field">
@@ -55,11 +55,10 @@ function App() {
                 <span className="form__input-error input-job-error" ></span>
               </label>
             </fieldset>
-            <button className="form__save-button form__save-button_disabled" type="submit" disabled>Сохранить</button>
         </>
         }  />
 
-      <PopupWithForm name="card_add" title="Новое место" onClose = {closeAllPopups} isOpen={isAddPlacePopupOpen} children={
+      <PopupWithForm name="card_add" title="Новое место" buttonText="Создать" onClose = {closeAllPopups} isOpen={isAddPlacePopupOpen} children={
         <>
             <fieldset className="form__info">
               <label className="form__field">
@@ -71,11 +70,10 @@ function App() {
                 <span className="form__input-error input-url-error" ></span>
               </label>
             </fieldset>
-            <button className="form__save-button form__save-button_disabled" type="submit" disabled>Создать</button>
         </>
         }  />  
 
-      <PopupWithForm name="avatar_edit" title="Обновить аватар" onClose = {closeAllPopups} isOpen={isEditAvatarPopupOpen} children={
+      <PopupWithForm name="avatar_edit" title="Обновить аватар" buttonText="Сохранить" onClose = {closeAllPopups} isOpen={isEditAvatarPopupOpen} children={
         <>
             <fieldset className="form__info">
               <label className="form__field">
@@ -83,12 +81,10 @@ function App() {
                 <span className="form__input-error input-avatarurl-error" ></span>
               </label>
             </fieldset>
-            <button className="form__save-button form__save-button_disabled" type="submit" disabled>Сохранить</button>
         </>
         }  /> 
 
-      <PopupWithForm name="card_delete" title="Вы уверены?" children={
-            <button className="form__save-button" type="submit">Да</button>}  /> 
+      <PopupWithForm name="card_delete" title="Вы уверены?" children={<></>}  /> 
 
     </div>
   )

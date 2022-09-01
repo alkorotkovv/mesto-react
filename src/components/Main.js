@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import profileImage from '../images/image.jpg';
 import api from '../utils/Api.js';
 import Card from './Card.js';
 
 function Main(props) {
 
-  const [userName, setUserName] = React.useState("Жак Ив Кусто");
-  const [userDescription, setUserDescription] = React.useState("Исследователь");
-  const [userAvatar, setUserAvatar] = React.useState(profileImage);
-  const [cards, setCards] = React.useState([]);
+  const [userName, setUserName] = useState("Жак Ив Кусто");
+  const [userDescription, setUserDescription] = useState("Исследователь");
+  const [userAvatar, setUserAvatar] = useState(profileImage);
+  const [cards, setCards] = useState([]);
 
   React.useEffect(() => {
       Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -43,7 +43,7 @@ function Main(props) {
       </section>
       <section className="elements">
         <ul className="elements__cards">
-          
+
           { 
             cards.map(element => 
               <Card card={element} onCardClick={props.onCardClick} key={element._id}/>)
