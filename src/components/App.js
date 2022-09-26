@@ -9,6 +9,7 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 import ImagePopup from './ImagePopup.js';
 
 function App() {
@@ -65,6 +66,17 @@ function App() {
       })
   }
 
+  function handleUpdateAvatar(avatarObject) {
+    api.setUserAvatar(avatarObject)
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+        setIsEditAvatarPopupOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -73,6 +85,7 @@ function App() {
         <Footer />
         <ImagePopup card={selectedCard} onClose = {closeAllPopups} />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
 
         <PopupWithForm name="card_add" title="Новое место" buttonText="Создать" onClose = {closeAllPopups} isOpen={isAddPlacePopupOpen} >
               <fieldset className="form__info">
@@ -83,15 +96,6 @@ function App() {
                 <label className="form__field">
                   <input className="form__input form__input_content_url" id="input-url" type="url" name="url" placeholder="Ссылка на картинку" required/>
                   <span className="form__input-error input-url-error" ></span>
-                </label>
-              </fieldset>
-        </PopupWithForm>
-
-        <PopupWithForm name="avatar_edit" title="Обновить аватар" buttonText="Сохранить" onClose = {closeAllPopups} isOpen={isEditAvatarPopupOpen} >
-              <fieldset className="form__info">
-                <label className="form__field">
-                  <input className="form__input form__input_content_url" id="input-avatarurl" type="url" name="avatarurl" placeholder="Ссылка на аватар" required/>
-                  <span className="form__input-error input-avatarurl-error" ></span>
                 </label>
               </fieldset>
         </PopupWithForm>
