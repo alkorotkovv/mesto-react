@@ -7,32 +7,6 @@ import CurrentUserContext from '../context/CurrentUserContext';
 function Main(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
-  const [cards, setCards] = useState([]);
-
-  React.useEffect(() => {
-    api.getInitialCards()
-      .then((initialCards) => {
-        setCards(initialCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }, []);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(person => person._id === currentUser._id);
-    api.toggleLikeCard(card, isLiked)
-    .then((newCard) => {
-      setCards(cards.map((c) => c._id === card._id ? newCard : c));
-    });
-  }
-
-  function handleCardDelete(card) {
-    api.deleteCard(card)
-    .then((newCard) => {
-      setCards(cards.filter((c) => c._id !== card._id));
-    });
-  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -56,8 +30,8 @@ function Main(props) {
           <ul className="elements__cards">
 
             { 
-              cards.map(element => 
-                <Card card={element} onCardClick={props.onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} key={element._id}/>)
+              props.cards.map(element => 
+                <Card card={element} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} key={element._id}/>)
             }
 
           </ul>
