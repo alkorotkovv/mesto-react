@@ -7,25 +7,32 @@ import CurrentUserContext from '../context/CurrentUserContext';
 function Main(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
-
-  //const [userName, setUserName] = useState("Жак Ив Кусто");
-  //const [userDescription, setUserDescription] = useState("Исследователь");
-  //const [userAvatar, setUserAvatar] = useState(profileImage);
   const [cards, setCards] = useState([]);
 
   React.useEffect(() => {
-      Promise.all([api.getInitialCards()])
-        .then(([initialCards]) => {
-          //setUserName(userInfo.name);
-          //setUserDescription(userInfo.about);
-          //setUserAvatar(userInfo.avatar);
-          setCards(initialCards);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-
+    api.getInitialCards()
+      .then((initialCards) => {
+        setCards(initialCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, []);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(person => person._id === currentUser._id);
+    api.toggleLikeCard(card, isLiked)
+    .then((newCard) => {
+      setCards(cards.map((c) => c._id === card._id ? newCard : c));
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card)
+    .then((newCard) => {
+      setCards(cards.filter((c) => c._id !== card._id));
+    });
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -50,7 +57,7 @@ function Main(props) {
 
             { 
               cards.map(element => 
-                <Card card={element} onCardClick={props.onCardClick} key={element._id}/>)
+                <Card card={element} onCardClick={props.onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} key={element._id}/>)
             }
 
           </ul>

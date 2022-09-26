@@ -68,8 +68,8 @@ class Api {
   };
 
   //Метод установки/снятия лайка
-  toggleLikeCard(cardData) {
-    let method = cardData._userLiked ? 'DELETE':'PUT';
+  toggleLikeCard(cardData, isLiked) {
+    let method = isLiked ? 'DELETE':'PUT';
     return fetch(this._baseUrl + 'cards/' + cardData._id + '/likes', {
       method: method,
       headers: this._headers,
