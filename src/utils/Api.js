@@ -39,7 +39,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: `${inputValuesObject.name}`,
-        about: `${inputValuesObject.job}`
+        about: `${inputValuesObject.about}`
       })
     })
     .then(res => this._checkResult(res))

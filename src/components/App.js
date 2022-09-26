@@ -8,11 +8,12 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
+import EditProfilePopup from './EditProfilePopup.js';
 import ImagePopup from './ImagePopup.js';
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({name: "", about: "", avatar: ""});
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -53,6 +54,17 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleUpdateUser(userObject) {
+    api.setUserInfo(userObject)
+      .then((userInfo) => {
+        setCurrentUser(userInfo);
+        setIsEditProfilePopupOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -60,18 +72,7 @@ function App() {
         <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
         <Footer />
         <ImagePopup card={selectedCard} onClose = {closeAllPopups} />
-        <PopupWithForm name="profile_edit" title="Редактировать профиль" buttonText="Сохранить" onClose = {closeAllPopups} isOpen={isEditProfilePopupOpen} >
-              <fieldset className="form__info">
-                <label className="form__field">
-                  <input className="form__input form__input_content_name" id="input-name" type="text" name="name" placeholder="Имя" required minLength="2" maxLength="40"/>
-                  <span className="form__input-error input-name-error" ></span>
-                </label>
-                <label className="form__field">
-                  <input className="form__input form__input_content_job" id="input-job" type="text" name="job" placeholder="О себе" required minLength="2" maxLength="200"/>
-                  <span className="form__input-error input-job-error" ></span>
-                </label>
-              </fieldset>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
         <PopupWithForm name="card_add" title="Новое место" buttonText="Создать" onClose = {closeAllPopups} isOpen={isAddPlacePopupOpen} >
               <fieldset className="form__info">
