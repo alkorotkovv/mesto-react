@@ -1,6 +1,4 @@
-import React, {useState} from 'react';
-import profileImage from '../images/image.jpg';
-import api from '../utils/Api.js';
+import React from 'react';
 import Card from './Card.js';
 import CurrentUserContext from '../context/CurrentUserContext';
 

@@ -36,7 +36,6 @@ function App() {
     api.getInitialCards()
       .then((initialCards) => {
         setCards(initialCards);
-        console.log(initialCards)
       })
       .catch((err) => {
         console.log(err);
@@ -53,7 +52,7 @@ function App() {
 
   function handleCardDelete(card) {
     api.deleteCard(card)
-    .then((newCard) => {
+    .then((res) => {
       setCards(cards.filter((c) => c._id !== card._id));
     });
   }
