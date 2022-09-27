@@ -22,19 +22,17 @@ function Card(props) {
   }
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <li className="card">
-        <img className="card__image" src={props.card.link} alt={props.card.name} onClick={handleClick}/>
-        <div className="card__description">
-          <h2 className="card__title">{props.card.name}</h2>
-          <div className="card__likes">
-            <button className={cardLikeButtonClassName} type="button" aria-label="Like" onClick={handleLikeClick}></button>
-            <p className="card__count">{props.card.likes.length}</p>
-          </div>
+    <li className="card">
+      <img className="card__image" src={props.card.link} alt={props.card.name} onClick={handleClick}/>
+      <div className="card__description">
+        <h2 className="card__title">{props.card.name}</h2>
+        <div className="card__likes">
+          <button className={cardLikeButtonClassName} type="button" aria-label="Like" onClick={handleLikeClick}></button>
+          <p className="card__count">{props.card.likes.length}</p>
         </div>
-        <button className={cardDeleteButtonClassName} type="button" aria-label="Delete" onClick={handleDeleteClick}></button>
-      </li>
-    </CurrentUserContext.Provider>
+      </div>
+      <button className={cardDeleteButtonClassName} type="button" aria-label="Delete" onClick={handleDeleteClick}></button>
+    </li>
   )
 }
 

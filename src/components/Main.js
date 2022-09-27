@@ -7,7 +7,6 @@ function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
       <main className="content">
         <section className="profile">
           <div className="profile__main">
@@ -35,7 +34,6 @@ function Main(props) {
           </ul>
         </section>
       </main>
-    </CurrentUserContext.Provider>
   );
 }
 

@@ -47,14 +47,20 @@ function App() {
     api.toggleLikeCard(card, isLiked)
     .then((newCard) => {
       setCards(cards.map((c) => c._id === card._id ? newCard : c));
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card)
     .then((res) => {
       setCards(cards.filter((c) => c._id !== card._id));
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   function handleEditProfileClick() {
@@ -118,8 +124,13 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} 
-              cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
+        <Main onEditProfile={handleEditProfileClick} 
+              onAddPlace={handleAddPlaceClick} 
+              onEditAvatar={handleEditAvatarClick} 
+              onCardClick={handleCardClick} 
+              cards={cards} 
+              onCardLike={handleCardLike} 
+              onCardDelete={handleCardDelete} />
         <Footer />
         <ImagePopup card={selectedCard} onClose = {closeAllPopups} />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
